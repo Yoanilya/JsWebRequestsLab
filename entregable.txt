@@ -1,0 +1,23 @@
+Entregable - Laboratorio: Peticiones Web con JavaScript (XMLHttpRequest + DOM)
+
+Paso 1 — Análisis de `XMLHttpRequest` y `js/request.js`:
+- ¿Qué es el objeto generado por `XMLHttpRequest`?
+  Es un objeto nativo del navegador (API Web) que permite enviar peticiones HTTP/HTTPS a un servidor y recibir respuestas de manera asíncrona (sin recargar la página completa), lo que permite actualizar dinámicamente el contenido del DOM con datos externos como JSON.
+
+- ¿Qué hace el método `open` de `xhr`?
+  Inicializa y configura la petición antes de enviarla. En `xhr.open("GET", requestUrl, true)`, define el método HTTP (`"GET"`), la URL de destino (`https://fakestoreapi.com/products`) y que la petición se ejecutará de forma asíncrona (`true`).
+
+- ¿Qué hace el método `onload` de `xhr`?
+  Es el manejador de evento (callback) que se ejecuta automáticamente cuando la petición HTTP finaliza y se recibe la respuesta del servidor. Dentro de `onload` se lee `xhr.responseText`, se convierte el texto JSON a un arreglo de objetos con `JSON.parse(...)`, se guarda en `data.json` y se insertan las filas en la tabla.
+
+- Al escribir `data` en la consola del navegador, ¿qué muestra?
+  Muestra un objeto `{ json: Array(20) }` cuya propiedad `json` contiene el arreglo de productos devuelto por la API `fakestoreapi.com/products`, donde cada elemento es un objeto con propiedades como `id`, `title`, `price`, `description`, `category`, `image` y `rating`.
+
+Paso 2 — ¿Qué significa `=>` en `array.forEach(element => { ... })`?
+Respuesta:
+`=>` es la sintaxis de función flecha (*arrow function*) introducida en ES6. Permite escribir funciones anónimas de forma más corta y legible (por ejemplo, `element => { ... }` equivale a `function(element) { ... }`), además de heredar el valor léxico de `this` del contexto donde se define.
+
+Paso 3 — ¿Qué hace `filter` y cómo funciona `includes` en este contexto?
+Respuesta:
+- `Array.prototype.filter(...)` recorre todos los elementos del arreglo `data.json`, evalúa una función de prueba para cada elemento y devuelve un **nuevo arreglo** únicamente con los elementos para los cuales la función retorna `true`, sin modificar el arreglo original.
+- `String.prototype.includes(...)` verifica si la cadena del título del producto (`item.title`) contiene como subcadena el texto ingresado por el usuario en el campo de búsqueda (`inputSearch.value`). Al convertir ambos a minúsculas con `.toLowerCase()`, la búsqueda encuentra coincidencias sin importar mayúsculas o minúsculas, y con el resultado filtrado se vuelve a poblar la tabla.
